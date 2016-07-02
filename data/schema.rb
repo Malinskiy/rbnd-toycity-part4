@@ -3,10 +3,10 @@
 # and adds a header for the columns: id, brand, product, price
 
 def db_create
-  data_path = File.dirname(__FILE__) + "/data.csv"
+  data_path = File.dirname(__FILE__) + '/data.csv'
   if !File.exist?(data_path)
-    CSV.open(data_path, "wb") do |csv|
-      csv << ["id", "brand", "product", "price"]
+    CSV.open(data_path, 'wb') do |csv|
+      csv << %w(id brand product price)
     end
   end
 end

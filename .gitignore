@@ -1,0 +1,11 @@
+## IDE
+*.ipr
+*.iws
+*.iml
+.idea/
+
+## OSX
+.DS_Store
+
+## Internal data
+data.csv

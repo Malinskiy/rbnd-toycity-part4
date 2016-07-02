@@ -8,18 +8,18 @@ include Analyzable
 class TestAnalyzable < MiniTest::Test
 
   def setup
-    @data_path = File.dirname(__FILE__) + "/../data/data.csv"
+    @data_path = File.dirname(__FILE__) + '/../data/data.csv'
     CSV.open(@data_path, "wb") do |csv|
-      csv << ["id", "brand", "product", "price"]
+      csv << %w(id brand product price)
     end
     db_seed
   end
 
   def test_average_price_method_returns_average_price
-    p1 = Product.create(brand: "AverageBrand", name: "Nyan Cat", price: 15.32)
-    p2 = Product.create(brand: "AverageBrand", name: "Nyan Cat", price: 18.23)
-    p3 = Product.create(brand: "AverageBrand", name: "Nyan Cat", price: 11.30)
-    avg = Analyzable::average_price(Product.where(brand: "AverageBrand"))
+    p1 = Product.create(brand: 'AverageBrand', name: 'Nyan Cat', price: 15.32)
+    p2 = Product.create(brand: 'AverageBrand', name: 'Nyan Cat', price: 18.23)
+    p3 = Product.create(brand: 'AverageBrand', name: 'Nyan Cat', price: 11.30)
+    avg = Analyzable::average_price(Product.where(brand: 'AverageBrand'))
     assert_equal(14.95, avg)
   end
 
