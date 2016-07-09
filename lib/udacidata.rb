@@ -3,16 +3,6 @@ require_relative 'errors'
 require 'csv'
 
 class Udacidata
-  def Udacidata.create_finder_methods(*attributes)
-    attributes.each do |attr|
-      metaclass.instance_eval do
-        define_method "find_by_#{attr}".to_sym do |value|
-          flatten(where({attr => value}).flatten)
-        end
-      end
-    end
-  end
-
   def self.create(db_file, db_schema, constructor, options)
     entity = constructor.call options
 
@@ -101,13 +91,5 @@ class Udacidata
   def self.flatten(array)
     return array[0] if array.is_a?(Array) && array.length == 1
     return array
-  end
-end
-
-class Object
-  def metaclass
-    class << self;
-      self;
-    end
   end
 end
