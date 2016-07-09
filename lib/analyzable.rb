@@ -13,7 +13,7 @@ module Analyzable
   end
 
   def print_report(entities)
-    entities.each { |entity| p entity }.to_s
+    entities.map { |entity| entity.to_s }.reduce(:+)
   end
 
   def average(attr, entities)

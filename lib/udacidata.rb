@@ -68,7 +68,12 @@ class Udacidata
   end
 
   def self.find(db_file, constructor, id)
-    flatten(where(db_file, constructor, :id => id).flatten)
+    result = flatten(where(db_file, constructor, :id => id).flatten)
+
+    if result.is_a? Product || (result.is_a? Array && !result.empty?)
+      return result
+    elsif raise ProductNotFoundError.new
+    end
   end
 
   def self.destroy(db_file, constructor, id)
@@ -77,13 +82,16 @@ class Udacidata
     entities = CSV.read(db_file, headers: true)
     entities.delete_if { |row| row['id'] == id.to_s ? result = row : false }
 
-    File.open(db_file, 'w') do |f|
-      f.write(entities.to_csv)
-    end
+    if !result.nil?
+      File.open(db_file, 'w') do |f|
+        f.write(entities.to_csv)
+      end
 
-    whole_file  = CSV.read(db_file)
-    file_schema = whole_file[0]
-    result      = constructor.call(to_options(result, file_schema))
+      whole_file  = CSV.read(db_file)
+      file_schema = whole_file[0]
+      result      = constructor.call(to_options(result, file_schema))
+    elsif raise ProductNotFoundError.new
+    end
 
     return result
   end

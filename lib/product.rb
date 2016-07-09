@@ -54,6 +54,11 @@ class Product < Udacidata
     super(@@db_file, @@db_schema, @@constructor, options)
   end
 
+
+  def to_s
+    "Product \##{id}: #{name} by #{brand}, $#{price}\r\n"
+  end
+
   def self.create(options)
     # existing = superclass::where(@@db_file, @@constructor, options)
 
