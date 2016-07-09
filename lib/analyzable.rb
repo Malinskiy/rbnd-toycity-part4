@@ -13,7 +13,16 @@ module Analyzable
   end
 
   def print_report(entities)
-    entities.map { |entity| entity.to_s }.reduce(:+)
+    report = ''
+    report << "Average Price: $#{average_price(entities)}\n\r"
+
+    report << "Inventory by Brand:\n\r"
+    count_by_brand(entities).each {|brand, count| report << "\t- #{brand}: #{count}\n\r" }
+
+    report << "Inventory by Name:\n\r"
+    count_by_name(entities).each {|name, count| report << "\t- #{name}: #{count}\n\r"}
+
+    return report
   end
 
   def average(attr, entities)
