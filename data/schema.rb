@@ -6,7 +6,7 @@ def db_create
   data_path = File.dirname(__FILE__) + '/data.csv'
   if !File.exist?(data_path)
     CSV.open(data_path, 'wb') do |csv|
-      csv << %w(id brand product price)
+      csv << Product.schema
     end
   end
 end
